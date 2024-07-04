@@ -62,7 +62,7 @@ function App(){
 
 	const handle=async (e)=>{
 		e.preventDefault();
-		let result=await fetch('https://practice-nu-flame.vercel.app/',{
+		let result=await fetch('https://vercel.com/vasita-puppalas-projects/practice/BsycG7WcxbeYJd9dSp7YbERsdZq8/',{
 			method:'post',
 			body:JSON.stringify({name, email ,acad}),
 			headers:{

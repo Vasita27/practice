@@ -47,13 +47,6 @@ app.use(express.json());
 app.use(cors());
 
 // CORS configuration
-const corsOptions = {
-  origin: "https://practice-dgt4.vercel.app", // Replace with your Vercel app URL
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: "Content-Type,Authorization",
-  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-app.use(cors(corsOptions));
 
 // Routes
 app.get("/", (req, res) => {

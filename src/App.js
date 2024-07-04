@@ -90,7 +90,7 @@ function App(){
 
 	return (
 		<form action=''>
-			<input type='text' name='name' value={name} placeholder='namehjg' onChange={(e)=>{
+			<input type='text' name='name' value={name} placeholder='namevasita' onChange={(e)=>{
 				setName(e.target.value)
 			}}/>
 			<input type='emai;' name='email' value={email} placeholder='email' onChange={(e)=>{

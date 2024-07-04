@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -44,9 +44,9 @@ User.createIndexes();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors()); // Use CORS globally for all routes
 
-// CORS configuration
+// CORS configuration for a specific origin
 const corsOptions = {
   origin: "https://practice-dgt4.vercel.app", // Replace with your Vercel app URL
   optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204

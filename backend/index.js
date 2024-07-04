@@ -1,10 +1,8 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
 
 // MongoDB connection setup
 mongoose.connect(
@@ -44,9 +42,18 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("users", UserSchema);
 User.createIndexes();
 
-// Middleware // Use CORS globally for all routes
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-// CORS configuration for a specific origin
+// CORS configuration
+const corsOptions = {
+  origin: "https://practice-dgt4.vercel.app", // Replace with your Vercel app URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
 
 // Routes
 app.get("/", (req, res) => {

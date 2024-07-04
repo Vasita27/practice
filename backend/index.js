@@ -3,6 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
 // MongoDB connection setup
 mongoose.connect(
@@ -42,9 +44,7 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("users", UserSchema);
 User.createIndexes();
 
-// Middleware
-app.use(express.json());
-app.use(cors()); // Use CORS globally for all routes
+// Middleware // Use CORS globally for all routes
 
 // CORS configuration for a specific origin
 

@@ -90,6 +90,7 @@ app.use(cors());
 
 app.post('/', async (req,resp)=>{
 	try{
+	console.log("blahblah");
 	const user=new User(req.body);
 	let  result=await user.save();
 	result=result.toObject();

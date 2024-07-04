@@ -1,112 +1,77 @@
+const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
 
-/*
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/', {
-	dbName: 'yourDB',
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-}, err => err ? console.log(err) : 
-	console.log('Connected to yourDB-name database'));
+const app = express();
+
+// MongoDB connection setup
+mongoose.connect(
+  "mongodb+srv://vasitapuppala:0NYUwrNGcmxjNrG2@cluster0.lzhqeww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+  {
+    dbName: "YourDbs",
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (err) {
+      console.error("Error connecting to MongoDB:", err);
+    } else {
+      console.log("Connected to MongoDB");
+    }
+  }
+);
+
+// Define MongoDB Schema
 const UserSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-	},
-	email: {
-		type: String,
-		required: true,
-		unique: true,
-	},
-	acad:{
-		type:String,
-		required: true,
-		unique: true,
-	},
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  acad: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
-const User = mongoose.model('users', UserSchema);
+
+const User = mongoose.model("users", UserSchema);
 User.createIndexes();
 
-const express = require('express');
-const app = express();
-const cors = require("cors");
-console.log("App listen at port 3000");
+// Middleware
 app.use(express.json());
 app.use(cors());
-app.get("/", (req, resp) => {
-    console.log(req.query.name);
-	resp.send("App is Working");
-});
 
-app.post("/", async (req, resp) => {
-	try {
-		const user = new User(req.body);
-		let result = await user.save();
-		result = result.toObject();
-		if (result) {
-			delete result.password;
-			resp.send(req.body);
-			console.log(result);
-		} else {
-			console.log("User already register");
-		}
-
-	} catch (e) {
-		resp.send("Something Went Wrong");
-	}
-});
-app.listen(5000);
-*/
-const mongoose=require("mongoose");
-mongoose.connect('mongodb+srv://vasitapuppala:0NYUwrNGcmxjNrG2@cluster0.lzhqeww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
-	dbName:'YourDbs',
-	useNewUrlParser:true,
-	useUnifiedTopology:true
-},err=>err?console.log('error'):console.log('Connected'));
-
-const UserSchema=new mongoose.Schema({
-	name:{
-		type:String,
-		required:true
-	},
-	email:{
-		type:String,
-		required:true,
-		unique:true
-	},
-	acad:{
-		type:String,
-		required:true,
-		unique:true
-	}
-});
-
-const User=mongoose.model('users',UserSchema);
-User.createIndexes();
-const express=require('express');
-const cors=require('cors');
-const app=express();
-app.use(express.json());
+// CORS configuration
 const corsOptions = {
-	origin: 'https://practice-dgt4.vercel.app',
-	optionsSuccessStatus: 200, // Some legacy browsers choke on 204
-  };
-  
+  origin: "https://practice-dgt4.vercel.app", // Replace with your Vercel app URL
+  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 app.use(cors(corsOptions));
 
-app.post('/', async (req,resp)=>{
-	try{
-	console.log("blahblah");
-	const user=new User(req.body);
-	let  result=await user.save();
-	result=result.toObject();
-	if(result){
-		resp.send(req.body);
-	}
-	else{
-		console.log("User already register");
-	}}
-	catch(e){
-		resp.send("Something Went Wrong");
-	}
+// Routes
+app.get("/", (req, res) => {
+  res.send("App is Working");
 });
-app.listen(5000);
+
+app.post("/", async (req, res) => {
+  try {
+    const user = new User(req.body);
+    let result = await user.save();
+    result = result.toObject();
+    if (result) {
+      res.send(req.body);
+    } else {
+      console.log("User already registered");
+    }
+  } catch (error) {
+    console.error("Error saving user:", error);
+    res.status(500).send("Something went wrong");
+  }
+});
+
+module.exports = app; // Export the app for Vercel deployment

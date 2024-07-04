@@ -57,7 +57,7 @@ app.post("/", async (req, resp) => {
 app.listen(5000);
 */
 const mongoose=require("mongoose");
-mongoose.connect('mongodb://localhost:27017/',{
+mongoose.connect('mongodb+srv://vasitapuppala:0NYUwrNGcmxjNrG2@cluster0.lzhqeww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
 	dbName:'YourDbs',
 	useNewUrlParser:true,
 	useUnifiedTopology:true

@@ -62,7 +62,7 @@ function App(){
 
 	const handle=async (e)=>{
 		e.preventDefault();
-		let result=await fetch('http://localhost:5000',{
+		let result=await fetch('https://practice-nu-flame.vercel.app/',{
 			method:'post',
 			body:JSON.stringify({name, email ,acad}),
 			headers:{

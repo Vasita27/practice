@@ -47,11 +47,6 @@ app.use(express.json());
 app.use(cors()); // Use CORS globally for all routes
 
 // CORS configuration for a specific origin
-const corsOptions = {
-  origin: "https://practice-dgt4.vercel.app", // Replace with your Vercel app URL
-  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-app.use(cors(corsOptions));
 
 // Routes
 app.get("/", (req, res) => {

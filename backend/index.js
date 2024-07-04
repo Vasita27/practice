@@ -86,7 +86,12 @@ const express=require('express');
 const cors=require('cors');
 const app=express();
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+	origin: 'https://practice-dgt4.vercel.app',
+	optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+  };
+  
+app.use(cors(corsOptions));
 
 app.post('/', async (req,resp)=>{
 	try{
